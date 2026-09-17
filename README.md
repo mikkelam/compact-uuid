@@ -1,12 +1,13 @@
 # compact_uuid
 
-`compact_uuid` is a PostgreSQL extension that stores UUIDs in the same 16-byte
-representation as PostgreSQL's native `uuid`, while using canonical unpadded
-Base64url for text input and output.
+**Short UUIDs for PostgreSQL: 22 characters instead of 36, with the same
+16-byte storage.**
 
-> [!IMPORTANT]
-> **Measured same-type indexed lookup cost: +4.3 µs.** The 95% confidence
-> interval included zero, from −0.3 µs to +10.3 µs.
+`compact_uuid` renders UUIDs as canonical, unpadded Base64url. Use clean IDs in
+URLs and APIs without storing strings or scattering encoding helpers across
+every client.
+
+Indexed lookups measured ~4 µs slower than native UUID.
 
 ```sql
 CREATE EXTENSION compact_uuid;
@@ -18,17 +19,13 @@ SELECT 'VQ6EAOKbQdSnFkRmVUQAAA'::compact_uuid::uuid;
 -- 550e8400-e29b-41d4-a716-446655440000
 ```
 
-The type accepts canonical 22-character Base64url values and hyphenated UUIDs.
-Its output is always Base64url. It supports B-tree and hash indexes, primary and
-foreign keys, arrays, binary COPY, and lossless assignment casts to and from
-`uuid`. Mixed `compact_uuid`/`uuid` comparisons participate in PostgreSQL's UUID
-operator families, so UUID-typed parameters can use indexes without explicit
-casts.
+## Features
 
-Mixed-type joins should use an explicit `ON compact_id = uuid_id` condition.
-PostgreSQL's `JOIN ... USING` needs an implicit cast to construct its merged
-output column; the extension deliberately avoids bidirectional implicit casts
-because they can make unrelated SQL function and operator resolution ambiguous.
+- Canonical 22-character Base64url output; accepts compact and standard UUID
+  input.
+- Native-sized 16-byte storage.
+- B-tree and hash indexes, primary keys, foreign keys, arrays, and binary COPY.
+- Lossless casts and indexed comparisons with native `uuid` values.
 
 ## Why not translate in the client?
 
@@ -38,6 +35,14 @@ canonical representation and validation boundary while retaining UUID storage,
 ordering, casts, and indexes. Text-protocol clients receive compact IDs without
 application helpers; clients using binary codecs can continue handling the same
 16 UUID bytes.
+
+## UUID compatibility
+
+Mixed `compact_uuid`/`uuid` comparisons participate in PostgreSQL's UUID
+operator families, so UUID-typed parameters can use indexes without explicit
+casts. Mixed-type joins should use `ON compact_id = uuid_id`; `JOIN ... USING`
+would require bidirectional implicit casts, which can make unrelated SQL
+function and operator resolution ambiguous.
 
 ## Installation
 
