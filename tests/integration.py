@@ -49,6 +49,224 @@ async def check_asyncpg(connection):
         await db.close()
 
 
+def check_catalog_contract(db):
+    layout = {}
+    for type_name in ["uuid", "compact_uuid"]:
+        layout[type_name] = db.execute(
+            """
+            SELECT typlen, typbyval, typalign, typstorage, typcategory, typcollation
+            FROM pg_type
+            WHERE oid = %s::regtype
+            """,
+            (type_name,),
+        ).fetchone()
+    assert layout["compact_uuid"] == layout["uuid"]
+
+    binary_io = db.execute(
+        """
+        SELECT receive.prosrc, send.prosrc
+        FROM pg_type type
+        JOIN pg_proc receive ON receive.oid = type.typreceive
+        JOIN pg_proc send ON send.oid = type.typsend
+        WHERE type.oid = 'compact_uuid'::regtype
+        """
+    ).fetchone()
+    assert binary_io == ("uuid_recv", "uuid_send")
+
+    casts = set(
+        db.execute(
+            """
+            SELECT source.typname, target.typname, conversion.castcontext,
+                   conversion.castmethod
+            FROM pg_cast conversion
+            JOIN pg_type source ON source.oid = conversion.castsource
+            JOIN pg_type target ON target.oid = conversion.casttarget
+            WHERE source.typname IN ('uuid', 'compact_uuid')
+              AND target.typname IN ('uuid', 'compact_uuid')
+              AND source.oid <> target.oid
+            """
+        ).fetchall()
+    )
+    assert casts == {
+        ("uuid", "compact_uuid", "a", "b"),
+        ("compact_uuid", "uuid", "a", "b"),
+    }
+
+    operator_rows = db.execute(
+        """
+        SELECT op.oprname, left_type.typname, right_type.typname,
+               op.oprcanhash, op.oprcanmerge,
+               restrict_proc.proname, join_proc.proname,
+               commutator.oprname, negator.oprname,
+               implementation.prosrc, implementation.proleakproof
+        FROM pg_operator op
+        JOIN pg_type left_type ON left_type.oid = op.oprleft
+        JOIN pg_type right_type ON right_type.oid = op.oprright
+        JOIN pg_proc restrict_proc ON restrict_proc.oid = op.oprrest
+        JOIN pg_proc join_proc ON join_proc.oid = op.oprjoin
+        JOIN pg_operator commutator ON commutator.oid = op.oprcom
+        JOIN pg_operator negator ON negator.oid = op.oprnegate
+        JOIN pg_proc implementation ON implementation.oid = op.oprcode
+        WHERE left_type.typname IN ('uuid', 'compact_uuid')
+          AND right_type.typname IN ('uuid', 'compact_uuid')
+          AND (left_type.typname = 'compact_uuid' OR right_type.typname = 'compact_uuid')
+          AND op.oprname IN ('=', '<>', '<', '<=', '>', '>=')
+        """
+    ).fetchall()
+    assert len(operator_rows) == 18
+    operator_contract = {
+        "=": (True, True, "eqsel", "eqjoinsel", "=", "<>", "uuid_eq"),
+        "<>": (False, False, "neqsel", "neqjoinsel", "<>", "=", "uuid_ne"),
+        "<": (False, False, "scalarltsel", "scalarltjoinsel", ">", ">=", "uuid_lt"),
+        "<=": (False, False, "scalarlesel", "scalarlejoinsel", ">=", ">", "uuid_le"),
+        ">": (False, False, "scalargtsel", "scalargtjoinsel", "<", "<=", "uuid_gt"),
+        ">=": (False, False, "scalargesel", "scalargejoinsel", "<=", "<", "uuid_ge"),
+    }
+    for row in operator_rows:
+        name, left_type, right_type, *metadata = row
+        assert (left_type, right_type) in {
+            ("compact_uuid", "compact_uuid"),
+            ("compact_uuid", "uuid"),
+            ("uuid", "compact_uuid"),
+        }
+        assert tuple(metadata) == (*operator_contract[name], True)
+
+    opclasses = set(
+        db.execute(
+            """
+            SELECT method.amname, class.opcdefault, family.opfname
+            FROM pg_opclass class
+            JOIN pg_am method ON method.oid = class.opcmethod
+            JOIN pg_opfamily family ON family.oid = class.opcfamily
+            WHERE class.opcintype = 'compact_uuid'::regtype
+            """
+        ).fetchall()
+    )
+    assert opclasses == {("btree", True, "uuid_ops"), ("hash", True, "uuid_ops")}
+
+    family_operators = set(
+        db.execute(
+            """
+            SELECT method.amname, left_type.typname, right_type.typname,
+                   member.amopstrategy, op.oprname
+            FROM pg_amop member
+            JOIN pg_opfamily family ON family.oid = member.amopfamily
+            JOIN pg_am method ON method.oid = family.opfmethod
+            JOIN pg_type left_type ON left_type.oid = member.amoplefttype
+            JOIN pg_type right_type ON right_type.oid = member.amoprighttype
+            JOIN pg_operator op ON op.oid = member.amopopr
+            WHERE family.opfname = 'uuid_ops'
+              AND (left_type.typname = 'compact_uuid' OR right_type.typname = 'compact_uuid')
+            """
+        ).fetchall()
+    )
+    expected_family_operators = set()
+    strategies = [(1, "<"), (2, "<="), (3, "="), (4, ">="), (5, ">")]
+    for left_type, right_type in [
+        ("compact_uuid", "compact_uuid"),
+        ("compact_uuid", "uuid"),
+        ("uuid", "compact_uuid"),
+    ]:
+        expected_family_operators.update(
+            ("btree", left_type, right_type, strategy, operator)
+            for strategy, operator in strategies
+        )
+        expected_family_operators.add(("hash", left_type, right_type, 1, "="))
+    assert family_operators == expected_family_operators
+
+    support_functions = set(
+        db.execute(
+            """
+            SELECT method.amname, left_type.typname, right_type.typname,
+                   member.amprocnum, implementation.prosrc
+            FROM pg_amproc member
+            JOIN pg_opfamily family ON family.oid = member.amprocfamily
+            JOIN pg_am method ON method.oid = family.opfmethod
+            JOIN pg_type left_type ON left_type.oid = member.amproclefttype
+            JOIN pg_type right_type ON right_type.oid = member.amprocrighttype
+            JOIN pg_proc implementation ON implementation.oid = member.amproc
+            WHERE family.opfname = 'uuid_ops'
+              AND (left_type.typname = 'compact_uuid' OR right_type.typname = 'compact_uuid')
+            """
+        ).fetchall()
+    )
+    assert support_functions == {
+        ("btree", "compact_uuid", "compact_uuid", 1, "uuid_cmp"),
+        ("btree", "compact_uuid", "compact_uuid", 2, "uuid_sortsupport"),
+        ("btree", "compact_uuid", "compact_uuid", 4, "btequalimage"),
+        ("btree", "compact_uuid", "compact_uuid", 6, "uuid_skipsupport"),
+        ("btree", "compact_uuid", "uuid", 1, "uuid_cmp"),
+        ("btree", "uuid", "compact_uuid", 1, "uuid_cmp"),
+        ("hash", "compact_uuid", "compact_uuid", 1, "uuid_hash"),
+        ("hash", "compact_uuid", "compact_uuid", 2, "uuid_hash_extended"),
+    }
+
+    function_contract = db.execute(
+        """
+        SELECT count(*), bool_and(provolatile = 'i'), bool_and(proisstrict),
+               bool_and(proparallel = 's')
+        FROM pg_proc
+        WHERE proname LIKE 'compact_uuid_%'
+        """
+    ).fetchone()
+    assert function_contract == (30, True, True, True)
+    results["postgres_catalog_contract"] = True
+
+
+def check_uuid_semantics(db):
+    values = [
+        "00000000-0000-0000-0000-000000000000",
+        "00000000-0000-0000-0000-000000000001",
+        "00010203-0405-0607-0809-0a0b0c0d0e0f",
+        str(EXAMPLE),
+        "019535d9-3df7-79fb-b466-fa907fa17f9e",
+        "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    ]
+    db.execute("CREATE TEMP TABLE uuid_semantics (native uuid, compact compact_uuid)")
+    with db.cursor() as cursor:
+        cursor.executemany(
+            "INSERT INTO uuid_semantics VALUES (%s, %s)",
+            [(value, value) for value in values],
+        )
+
+    for operator in ["=", "<>", "<", "<=", ">", ">="]:
+        equivalent = db.execute(
+            f"""
+            SELECT bool_and(
+                (left_value.native {operator} right_value.native)
+                    = (left_value.compact {operator} right_value.compact)
+                AND (left_value.native {operator} right_value.native)
+                    = (left_value.compact {operator} right_value.native)
+                AND (left_value.native {operator} right_value.native)
+                    = (left_value.native {operator} right_value.compact)
+            )
+            FROM uuid_semantics left_value
+            CROSS JOIN uuid_semantics right_value
+            """
+        ).fetchone()[0]
+        assert equivalent, operator
+
+    native_order, compact_order = db.execute(
+        """
+        SELECT array_agg(native ORDER BY native),
+               array_agg(compact::uuid ORDER BY compact)
+        FROM uuid_semantics
+        """
+    ).fetchone()
+    assert native_order == compact_order
+    assert db.execute(
+        """
+        SELECT bool_and(
+            pg_catalog.uuid_hash(native) = compact_uuid_hash(compact)
+            AND pg_catalog.uuid_hash_extended(native, 42)
+                = compact_uuid_hash_extended(compact, 42)
+        )
+        FROM uuid_semantics
+        """
+    ).fetchone()[0]
+    results["uuid_semantics_contract"] = len(values)
+
+
 def check_interoperability(db):
     db.execute("CREATE INDEX samples_native_idx ON samples(native)")
     for condition, parameter in [
@@ -181,6 +399,8 @@ def check_database(connection):
         assert (
             db.execute("SELECT %s::compact_uuid", (EXAMPLE,)).fetchone()[0] == COMPACT
         )
+        check_catalog_contract(db)
+        check_uuid_semantics(db)
 
         with db.cursor(binary=True) as cursor:
             value = cursor.execute("SELECT %s::compact_uuid", (COMPACT,)).fetchone()[0]

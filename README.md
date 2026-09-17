@@ -48,6 +48,10 @@ casts. Mixed-type joins should use `ON compact_id = uuid_id`; `JOIN ... USING`
 would require bidirectional implicit casts, which can make unrelated SQL
 function and operator resolution ambiguous.
 
+The [PostgreSQL compatibility contract](docs/postgresql-compatibility.md) links
+the PostgreSQL 18.6 source definitions mirrored by the extension and tested in
+CI.
+
 ## Installation
 
 The extension currently supports PostgreSQL 18. Install the matching pgrx CLI,
