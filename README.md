@@ -3,6 +3,8 @@
 **Short UUIDs for PostgreSQL: 22 characters instead of 36, with the same
 16-byte storage.**
 
+![A standard UUID URL compared with a compact UUID URL](compact-uuid.png)
+
 `compact_uuid` renders UUIDs as canonical, unpadded Base64url. Use clean IDs in
 URLs and APIs without storing strings or scattering encoding helpers across
 every client.
