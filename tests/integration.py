@@ -630,4 +630,6 @@ def test_compact_uuid():
 
         output = json.dumps(results, indent=2)
         print(output)
-        (ROOT / "target/integration-results.json").write_text(output + "\n")
+        output_path = ROOT / "target/integration-results.json"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(output + "\n")
