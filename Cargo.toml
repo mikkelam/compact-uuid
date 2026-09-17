@@ -1,0 +1,22 @@
+[package]
+name = "compact_uuid"
+version = "0.1.0"
+edition = "2024"
+description = "A 16-byte PostgreSQL UUID type with compact Base64url text representation"
+license = "MIT"
+readme = "README.md"
+keywords = ["postgresql", "uuid", "base64url", "pgrx"]
+categories = ["database"]
+
+[lib]
+crate-type = ["cdylib"]
+
+[features]
+default = ["pg18"]
+pg18 = ["pgrx/pg18"]
+pg_test = []
+
+[dependencies]
+pgrx = "=0.19.2"
+base64 = "0.22"
+uuid = "1"

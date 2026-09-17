@@ -1,0 +1,6 @@
+comment = 'UUIDs with a canonical 22-character Base64url representation'
+default_version = '@CARGO_VERSION@'
+module_pathname = 'compact_uuid'
+relocatable = true
+superuser = true
+trusted = false

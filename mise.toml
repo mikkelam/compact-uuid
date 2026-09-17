@@ -1,0 +1,12 @@
+[tools]
+uv = "0.12.1"
+python = "3.13"
+
+[tasks.image]
+run = "docker build --tag compact-uuid:test ."
+
+[tasks.test]
+run = "uv run pytest"
+
+[tasks.benchmark]
+run = "uv run python benchmark/run.py"

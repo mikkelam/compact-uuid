@@ -1,0 +1,9 @@
+.git
+.scratch
+target
+__pycache__
+.pytest_cache
+.venv
+tests
+pyproject.toml
+uv.lock

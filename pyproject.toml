@@ -1,0 +1,20 @@
+[project]
+name = "compact-uuid-tests"
+version = "0.1.0"
+requires-python = ">=3.13"
+dependencies = []
+
+[dependency-groups]
+dev = [
+    "asyncpg==0.31.0",
+    "psycopg[binary]==3.3.5",
+    "pytest>=8.4,<9",
+    "testcontainers[postgres]>=4.13,<5",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "integration.py"]
+
+[tool.uv]
+package = false

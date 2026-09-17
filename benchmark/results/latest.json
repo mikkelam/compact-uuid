@@ -1,0 +1,1256 @@
+{
+  "generated_at": "2026-09-17T13:36:31Z",
+  "configuration": {
+    "rows": 500000,
+    "repetitions": 7,
+    "duration": 5,
+    "clients": 8,
+    "jobs": 4,
+    "seed": 20260917,
+    "image": "compact-uuid:benchmark",
+    "skip_build": false
+  },
+  "environment": {
+    "host": "macOS-15.7.3-arm64-64bit-Mach-O",
+    "architecture": "arm64",
+    "postgres": "PostgreSQL 18.6 (Debian 18.6-1.pgdg12+2) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 12.2.0-14+deb12u1) 12.2.0, 64-bit",
+    "container_cpus": "6",
+    "container_memory_limit": "max"
+  },
+  "static": {
+    "native_heap_bytes": 63021056,
+    "compact_heap_bytes": 63021056,
+    "native_primary_index_bytes": 19734528,
+    "compact_primary_index_bytes": 19734528,
+    "native_total_bytes": 94060544,
+    "compact_total_bytes": 94060544,
+    "native_datum_bytes": 16.0,
+    "compact_datum_bytes": 16.0,
+    "native_text_chars": 36.0,
+    "compact_text_chars": 22.0
+  },
+  "summary": {
+    "lookup": {
+      "latency_ms": {
+        "compact_over_native": 1.1331264635678584,
+        "percent_change": 13.31264635678584,
+        "ci95": [
+          0.9906503733941159,
+          1.318466179203014
+        ],
+        "native_geomean": 0.03226294050713805,
+        "compact_geomean": 0.03655799168115354,
+        "absolute_change": 0.004295051174015491
+      },
+      "tps": {
+        "compact_over_native": 0.881610915739964,
+        "percent_change": -11.838908426003602,
+        "ci95": [
+          0.7555560296765033,
+          1.008229993910146
+        ],
+        "native_geomean": 247930.18072926204,
+        "compact_geomean": 218577.95367229963,
+        "absolute_change": -29352.22705696241
+      }
+    },
+    "interop": {
+      "latency_ms": {
+        "compact_over_native": 1.4645270395233814,
+        "percent_change": 46.45270395233814,
+        "ci95": [
+          1.226496867851962,
+          1.7521249137436403
+        ],
+        "native_geomean": 0.03165410382995673,
+        "compact_geomean": 0.046358290970852256,
+        "absolute_change": 0.014704187140895525
+      },
+      "tps": {
+        "compact_over_native": 0.6806398593058217,
+        "percent_change": -31.93601406941783,
+        "ci95": [
+          0.5704175429205784,
+          0.8181588828535605
+        ],
+        "native_geomean": 253769.7737811326,
+        "compact_geomean": 172725.82312246045,
+        "absolute_change": -81043.95065867214
+      }
+    },
+    "input": {
+      "latency_ms": {
+        "compact_over_native": 1.2394129581433992,
+        "percent_change": 23.941295814339924,
+        "ci95": [
+          1.0491376033636528,
+          1.4951188152379453
+        ],
+        "native_geomean": 0.03200207669404823,
+        "compact_geomean": 0.039663788542102243,
+        "absolute_change": 0.0076617118480540106
+      },
+      "tps": {
+        "compact_over_native": 0.8024734036128509,
+        "percent_change": -19.75265963871491,
+        "ci95": [
+          0.6667983241003641,
+          0.9532021934340291
+        ],
+        "native_geomean": 250694.15557244394,
+        "compact_geomean": 201175.39228806863,
+        "absolute_change": -49518.76328437531
+      }
+    },
+    "output": {
+      "latency_ms": {
+        "compact_over_native": 1.0985612205840802,
+        "percent_change": 9.856122058408022,
+        "ci95": [
+          0.9603985797966061,
+          1.2173522549467275
+        ],
+        "native_geomean": 0.055176588462544404,
+        "compact_geomean": 0.06061486036907827,
+        "absolute_change": 0.005438271906533863
+      },
+      "tps": {
+        "compact_over_native": 0.9081532788507122,
+        "percent_change": -9.184672114928782,
+        "ci95": [
+          0.8222011126989988,
+          1.0388348612334115
+        ],
+        "native_geomean": 145029.19161726412,
+        "compact_geomean": 131708.73589628653,
+        "absolute_change": -13320.455720977596
+      }
+    },
+    "range": {
+      "latency_ms": {
+        "compact_over_native": 1.1657244348412006,
+        "percent_change": 16.572443484120058,
+        "ci95": [
+          1.0926511431164692,
+          1.2394925533690564
+        ],
+        "native_geomean": 0.033475657511206264,
+        "compact_geomean": 0.03902339193318851,
+        "absolute_change": 0.005547734421982246
+      },
+      "tps": {
+        "compact_over_native": 0.8530072812366158,
+        "percent_change": -14.699271876338415,
+        "ci95": [
+          0.801961756470563,
+          0.9088512774580604
+        ],
+        "native_geomean": 239815.2627129348,
+        "compact_geomean": 204564.16524580496,
+        "absolute_change": -35251.097467129846
+      }
+    },
+    "insert": {
+      "latency_ms": {
+        "compact_over_native": 1.0537221989666836,
+        "percent_change": 5.372219896668362,
+        "ci95": [
+          0.9843019662030439,
+          1.1088713441381302
+        ],
+        "native_geomean": 1.6016849767948091,
+        "compact_geomean": 1.6877310158001277,
+        "absolute_change": 0.0860460390053186
+      },
+      "tps": {
+        "compact_over_native": 0.9491730134875456,
+        "percent_change": -5.082698651245443,
+        "ci95": [
+          0.9024287592753898,
+          1.015867236499373
+        ],
+        "native_geomean": 4994.239684953886,
+        "compact_geomean": 4740.397531846766,
+        "absolute_change": -253.8421531071208
+      }
+    }
+  },
+  "plans": {
+    "lookup_native": {
+      "Node Type": "Nested Loop",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Join Type": "Inner",
+      "Disabled": false,
+      "Inner Unique": true,
+      "Plans": [
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "benchmark_ids_pkey",
+          "Relation Name": "benchmark_ids",
+          "Alias": "b",
+          "Disabled": false,
+          "Index Cond": "(n = 1)"
+        },
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Inner",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "native_ids_pkey",
+          "Relation Name": "native_ids",
+          "Alias": "i",
+          "Disabled": false,
+          "Index Cond": "(id = b.id)"
+        }
+      ]
+    },
+    "lookup_compact": {
+      "Node Type": "Nested Loop",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Join Type": "Inner",
+      "Disabled": false,
+      "Inner Unique": true,
+      "Plans": [
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "benchmark_ids_pkey",
+          "Relation Name": "benchmark_ids",
+          "Alias": "b",
+          "Disabled": false,
+          "Index Cond": "(n = 1)"
+        },
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Inner",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "compact_ids_pkey",
+          "Relation Name": "compact_ids",
+          "Alias": "i",
+          "Disabled": false,
+          "Index Cond": "(id = b.compact_id)"
+        }
+      ]
+    },
+    "interop_compact": {
+      "Node Type": "Nested Loop",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Join Type": "Inner",
+      "Disabled": false,
+      "Inner Unique": true,
+      "Plans": [
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "benchmark_ids_pkey",
+          "Relation Name": "benchmark_ids",
+          "Alias": "b",
+          "Disabled": false,
+          "Index Cond": "(n = 1)"
+        },
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "Inner",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "compact_ids_pkey",
+          "Relation Name": "compact_ids",
+          "Alias": "i",
+          "Disabled": false,
+          "Index Cond": "(id = b.id)"
+        }
+      ]
+    },
+    "input_native": {
+      "Node Type": "Index Scan",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Scan Direction": "Forward",
+      "Index Name": "native_ids_pkey",
+      "Relation Name": "native_ids",
+      "Alias": "native_ids",
+      "Disabled": false,
+      "Index Cond": "(id = (InitPlan 1).col1)",
+      "Plans": [
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "InitPlan",
+          "Subplan Name": "InitPlan 1",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "benchmark_inputs_n_idx",
+          "Relation Name": "benchmark_inputs",
+          "Alias": "benchmark_inputs",
+          "Disabled": false,
+          "Index Cond": "(n = 1)"
+        }
+      ]
+    },
+    "input_compact": {
+      "Node Type": "Index Scan",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Scan Direction": "Forward",
+      "Index Name": "compact_ids_pkey",
+      "Relation Name": "compact_ids",
+      "Alias": "compact_ids",
+      "Disabled": false,
+      "Index Cond": "(id = (InitPlan 1).col1)",
+      "Plans": [
+        {
+          "Node Type": "Index Scan",
+          "Parent Relationship": "InitPlan",
+          "Subplan Name": "InitPlan 1",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Scan Direction": "Forward",
+          "Index Name": "benchmark_inputs_n_idx",
+          "Relation Name": "benchmark_inputs",
+          "Alias": "benchmark_inputs",
+          "Disabled": false,
+          "Index Cond": "(n = 1)"
+        }
+      ]
+    },
+    "output_native": {
+      "Node Type": "Index Scan",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Scan Direction": "Forward",
+      "Index Name": "native_ids_n_key",
+      "Relation Name": "native_ids",
+      "Alias": "native_ids",
+      "Disabled": false,
+      "Index Cond": "((n >= 1) AND (n <= 100))"
+    },
+    "output_compact": {
+      "Node Type": "Index Scan",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Scan Direction": "Forward",
+      "Index Name": "compact_ids_n_key",
+      "Relation Name": "compact_ids",
+      "Alias": "compact_ids",
+      "Disabled": false,
+      "Index Cond": "((n >= 1) AND (n <= 100))"
+    },
+    "range_native": {
+      "Node Type": "Aggregate",
+      "Strategy": "Plain",
+      "Partial Mode": "Simple",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Disabled": false,
+      "Plans": [
+        {
+          "Node Type": "Limit",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Disabled": false,
+          "Plans": [
+            {
+              "Node Type": "Index Scan",
+              "Parent Relationship": "InitPlan",
+              "Subplan Name": "InitPlan 1",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "benchmark_ids_pkey",
+              "Relation Name": "benchmark_ids",
+              "Alias": "benchmark_ids",
+              "Disabled": false,
+              "Index Cond": "(n = 1)"
+            },
+            {
+              "Node Type": "Index Only Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "native_ids_pkey",
+              "Relation Name": "native_ids",
+              "Alias": "native_ids",
+              "Disabled": false,
+              "Index Cond": "(id >= (InitPlan 1).col1)"
+            }
+          ]
+        }
+      ]
+    },
+    "range_compact": {
+      "Node Type": "Aggregate",
+      "Strategy": "Plain",
+      "Partial Mode": "Simple",
+      "Parallel Aware": false,
+      "Async Capable": false,
+      "Disabled": false,
+      "Plans": [
+        {
+          "Node Type": "Limit",
+          "Parent Relationship": "Outer",
+          "Parallel Aware": false,
+          "Async Capable": false,
+          "Disabled": false,
+          "Plans": [
+            {
+              "Node Type": "Index Scan",
+              "Parent Relationship": "InitPlan",
+              "Subplan Name": "InitPlan 1",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "benchmark_ids_pkey",
+              "Relation Name": "benchmark_ids",
+              "Alias": "benchmark_ids",
+              "Disabled": false,
+              "Index Cond": "(n = 1)"
+            },
+            {
+              "Node Type": "Index Only Scan",
+              "Parent Relationship": "Outer",
+              "Parallel Aware": false,
+              "Async Capable": false,
+              "Scan Direction": "Forward",
+              "Index Name": "compact_ids_pkey",
+              "Relation Name": "compact_ids",
+              "Alias": "compact_ids",
+              "Disabled": false,
+              "Index Cond": "(id >= (InitPlan 1).col1)"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "raw": {
+    "lookup": [
+      {
+        "repetition": 1,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.036,
+          "tps": 219559.609593,
+          "transactions": 1097463,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.034,
+          "tps": 233616.653252,
+          "transactions": 1168276,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.028,
+          "tps": 287858.302948,
+          "transactions": 1438647,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.047,
+          "tps": 169439.937542,
+          "transactions": 846842,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.039,
+          "tps": 204134.490892,
+          "transactions": 1021203,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.043,
+          "tps": 188215.770921,
+          "transactions": 941265,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 4,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.034,
+          "tps": 234109.544257,
+          "transactions": 1170109,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.04,
+          "tps": 198499.289913,
+          "transactions": 992794,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 5,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.035,
+          "tps": 231386.791054,
+          "transactions": 1156259,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.028,
+          "tps": 289451.003283,
+          "transactions": 1446457,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 6,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.028,
+          "tps": 284556.699038,
+          "transactions": 1422238,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.025,
+          "tps": 322710.874747,
+          "transactions": 1612948,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 7,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.035,
+          "tps": 226234.697303,
+          "transactions": 1131547,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.036,
+          "tps": 220848.14209,
+          "transactions": 1103712,
+          "failures": 0
+        }
+      }
+    ],
+    "interop": [
+      {
+        "repetition": 1,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.03,
+          "tps": 267563.473247,
+          "transactions": 1337907,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.049,
+          "tps": 162934.301778,
+          "transactions": 814701,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.052,
+          "tps": 153817.615478,
+          "transactions": 768676,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.028,
+          "tps": 287770.043322,
+          "transactions": 1437980,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.035,
+          "tps": 230541.281826,
+          "transactions": 1152809,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.036,
+          "tps": 223414.074278,
+          "transactions": 1117334,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 4,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.025,
+          "tps": 319680.307897,
+          "transactions": 1599101,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.052,
+          "tps": 154157.491698,
+          "transactions": 770370,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 5,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.039,
+          "tps": 204136.494514,
+          "transactions": 1020215,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.049,
+          "tps": 162822.678118,
+          "transactions": 813664,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 6,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.045,
+          "tps": 179034.313009,
+          "transactions": 895547,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.036,
+          "tps": 224479.167291,
+          "transactions": 1122821,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 7,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.03,
+          "tps": 268957.544952,
+          "transactions": 1345274,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.045,
+          "tps": 176651.688035,
+          "transactions": 883575,
+          "failures": 0
+        }
+      }
+    ],
+    "input": [
+      {
+        "repetition": 1,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.037,
+          "tps": 216020.933526,
+          "transactions": 1079737,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.038,
+          "tps": 208304.909891,
+          "transactions": 1041887,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.044,
+          "tps": 181613.401521,
+          "transactions": 908235,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.028,
+          "tps": 288165.628596,
+          "transactions": 1439619,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.042,
+          "tps": 190137.095634,
+          "transactions": 951007,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.045,
+          "tps": 176329.69251,
+          "transactions": 880755,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 4,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.037,
+          "tps": 217687.484603,
+          "transactions": 1087775,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.039,
+          "tps": 203625.377644,
+          "transactions": 1018414,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 5,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.039,
+          "tps": 205499.106826,
+          "transactions": 1027640,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.021,
+          "tps": 385774.582392,
+          "transactions": 1929619,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 6,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.028,
+          "tps": 288202.645619,
+          "transactions": 1441417,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.033,
+          "tps": 240692.019246,
+          "transactions": 1203844,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 7,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.045,
+          "tps": 177504.709229,
+          "transactions": 887763,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.033,
+          "tps": 242927.844272,
+          "transactions": 1214664,
+          "failures": 0
+        }
+      }
+    ],
+    "output": [
+      {
+        "repetition": 1,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.052,
+          "tps": 152892.253537,
+          "transactions": 764011,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.065,
+          "tps": 122883.375137,
+          "transactions": 614504,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.061,
+          "tps": 130277.853977,
+          "transactions": 651108,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.051,
+          "tps": 157204.487627,
+          "transactions": 786326,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.055,
+          "tps": 145817.226566,
+          "transactions": 729157,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.057,
+          "tps": 140237.269046,
+          "transactions": 701266,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 4,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.051,
+          "tps": 155690.815679,
+          "transactions": 778415,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.065,
+          "tps": 123513.693854,
+          "transactions": 617327,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 5,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.061,
+          "tps": 131221.604538,
+          "transactions": 656184,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.051,
+          "tps": 158172.015487,
+          "transactions": 790936,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 6,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.055,
+          "tps": 144408.038711,
+          "transactions": 722235,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.072,
+          "tps": 111044.123825,
+          "transactions": 555326,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 7,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.057,
+          "tps": 140812.271515,
+          "transactions": 703722,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.061,
+          "tps": 130846.790403,
+          "transactions": 654263,
+          "failures": 0
+        }
+      }
+    ],
+    "range": [
+      {
+        "repetition": 1,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.035,
+          "tps": 230967.03003,
+          "transactions": 1154570,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.035,
+          "tps": 227048.675231,
+          "transactions": 1135947,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.036,
+          "tps": 220900.524524,
+          "transactions": 1104031,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.032,
+          "tps": 246820.513888,
+          "transactions": 1233681,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.04,
+          "tps": 202530.034657,
+          "transactions": 1012156,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.035,
+          "tps": 228701.021968,
+          "transactions": 1143160,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 4,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.032,
+          "tps": 253929.230732,
+          "transactions": 1269200,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.041,
+          "tps": 194694.614279,
+          "transactions": 973050,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 5,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.038,
+          "tps": 211698.724997,
+          "transactions": 1058989,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.029,
+          "tps": 275095.163295,
+          "transactions": 1375645,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 6,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 0.039,
+          "tps": 203616.85318,
+          "transactions": 1018013,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 0.035,
+          "tps": 230326.033674,
+          "transactions": 1151158,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 7,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 0.037,
+          "tps": 217470.178066,
+          "transactions": 1086934,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 0.045,
+          "tps": 175839.260252,
+          "transactions": 878887,
+          "failures": 0
+        }
+      }
+    ],
+    "insert": [
+      {
+        "repetition": 1,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 1.918,
+          "tps": 4170.208786,
+          "transactions": 20868,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 2.205,
+          "tps": 3628.394662,
+          "transactions": 18153,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 2,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 2.543,
+          "tps": 3145.962176,
+          "transactions": 15746,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 2.282,
+          "tps": 3505.389309,
+          "transactions": 17537,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 3,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 1.547,
+          "tps": 5170.304077,
+          "transactions": 25855,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 1.634,
+          "tps": 4895.185165,
+          "transactions": 24479,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 4,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 1.595,
+          "tps": 5016.066651,
+          "transactions": 25084,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 1.438,
+          "tps": 5562.3036,
+          "transactions": 27815,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 5,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 1.538,
+          "tps": 5201.349799,
+          "transactions": 26006,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 1.44,
+          "tps": 5555.653313,
+          "transactions": 27784,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 6,
+        "order": [
+          "compact",
+          "native"
+        ],
+        "compact": {
+          "latency_ms": 1.451,
+          "tps": 5514.038598,
+          "transactions": 27570,
+          "failures": 0
+        },
+        "native": {
+          "latency_ms": 1.414,
+          "tps": 5657.858532,
+          "transactions": 28294,
+          "failures": 0
+        }
+      },
+      {
+        "repetition": 7,
+        "order": [
+          "native",
+          "compact"
+        ],
+        "native": {
+          "latency_ms": 1.364,
+          "tps": 5864.535451,
+          "transactions": 29321,
+          "failures": 0
+        },
+        "compact": {
+          "latency_ms": 1.196,
+          "tps": 6691.400755,
+          "transactions": 33465,
+          "failures": 0
+        }
+      }
+    ]
+  }
+}
