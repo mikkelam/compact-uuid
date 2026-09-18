@@ -54,8 +54,23 @@ CI.
 
 ## Installation
 
-The extension currently supports PostgreSQL 18. Install the matching pgrx CLI,
-register your PostgreSQL installation, then build and install from source:
+The extension currently supports PostgreSQL 18.
+
+### Binary package
+
+GitHub Releases provides a package for PostgreSQL 18 on Debian 12 x86-64. It
+contains the extension files at their standard PostgreSQL installation paths:
+
+```fish
+gh release download v0.1.0 --pattern 'compact_uuid-0.1.0-pg18-debian12-amd64.tar.gz*'
+sha256sum --check compact_uuid-0.1.0-pg18-debian12-amd64.tar.gz.sha256
+sudo tar --extract --gzip --file compact_uuid-0.1.0-pg18-debian12-amd64.tar.gz --directory /
+```
+
+### Build from source
+
+Install the matching pgrx CLI, register your PostgreSQL installation, then
+build and install:
 
 ```fish
 cargo install cargo-pgrx --version 0.19.2 --locked

@@ -34,6 +34,10 @@ COPY sql ./sql
 RUN cargo nextest run --locked \
     && cargo pgrx package --pg-config "$(command -v pg_config)" --out-dir /package
 
+FROM scratch AS package
+
+COPY --from=builder /package/ /
+
 FROM postgres:${PG_VERSION}-bookworm
 
 COPY --from=builder /package/ /
