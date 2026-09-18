@@ -1,6 +1,6 @@
 [package]
 name = "compact_uuid"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "A 16-byte PostgreSQL UUID type with compact Base64url text representation"
 license = "MIT"

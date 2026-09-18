@@ -58,13 +58,17 @@ The extension currently supports PostgreSQL 18.
 
 ### Binary package
 
-GitHub Releases provides a package for PostgreSQL 18 on Debian 12 x86-64. It
-contains the extension files at their standard PostgreSQL installation paths:
+GitHub Releases provides packages for PostgreSQL 18 on Debian 12 x86-64 and
+ARM64. They contain the extension files at their standard PostgreSQL
+installation paths:
 
 ```fish
-gh release download v0.1.0 --pattern 'compact_uuid-0.1.0-pg18-debian12-amd64.tar.gz*'
-sha256sum --check compact_uuid-0.1.0-pg18-debian12-amd64.tar.gz.sha256
-sudo tar --extract --gzip --file compact_uuid-0.1.0-pg18-debian12-amd64.tar.gz --directory /
+set release (gh release view --json tagName --jq .tagName)
+set version (string replace --regex '^v' '' $release)
+set archive compact_uuid-$version-pg18-debian12-(dpkg --print-architecture).tar.gz
+gh release download $release --pattern "$archive*"
+sha256sum --check "$archive.sha256"
+sudo tar --extract --gzip --file $archive --directory /
 ```
 
 ### Build from source

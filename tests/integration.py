@@ -4,6 +4,7 @@ import asyncio
 import base64
 import json
 from pathlib import Path
+import tomllib
 import uuid
 
 import asyncpg
@@ -14,6 +15,7 @@ from testcontainers.community.postgres import PostgresContainer
 
 ROOT = Path(__file__).resolve().parents[1]
 IMAGE = "compact-uuid:test"
+EXTENSION_VERSION = tomllib.loads((ROOT / "Cargo.toml").read_text())["package"]["version"]
 EXAMPLE = uuid.UUID("550e8400-e29b-41d4-a716-446655440000")
 COMPACT = "VQ6EAOKbQdSnFkRmVUQAAA"
 results: dict[str, object] = {}
@@ -387,7 +389,7 @@ def check_database(connection):
             db.execute(
                 "SELECT extversion FROM pg_extension WHERE extname = 'compact_uuid'"
             ).fetchone()[0]
-            == "0.1.0"
+            == EXTENSION_VERSION
         )
         value = db.execute("SELECT %s::compact_uuid", (COMPACT,)).fetchone()[0]
         assert value == COMPACT
